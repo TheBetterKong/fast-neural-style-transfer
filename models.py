@@ -16,7 +16,7 @@ import torch.nn.functional as F
 
 class VGG16(torch.nn.Module):
     """
-
+    损失网络是使用一个预先已经训练好的 vgg16
     """
     def __init__(self, requires_grad=False):
         super(VGG16, self).__init__()
