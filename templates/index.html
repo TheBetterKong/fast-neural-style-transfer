@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <title>fast-neural-style-transfer</title>
+
+    <!-- Bootstrap -->
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!--<h1 align="center" class="my_title" >图像风格转换</h1>-->
+
+<!-- 图片轮播 -->
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="../static/img/ic_p4.jpg">
+            <p class="carousel-caption">
+                如果尚有余力，就去保护美好的东西。 ----张嘉佳
+            </p>
+        </div>
+        <div class="item">
+            <img src="../static/img/ic_p5.jpg">
+            <p class="carousel-caption">
+                一个人到世界上来，来做什么？爱最可爱的，最好听的、最好看的、最好吃的。 ----木心
+            </p>
+        </div>
+        <div class="item">
+            <img src="../static/img/ic_p6.jpg">
+            <p class="carousel-caption">
+                我深知一切，却从不言语
+            </p>
+        </div>
+        <div class="item">
+            <img src="../static/img/ic_p7.jpg">
+            <p class="carousel-caption">
+                各有各的音，各有各的知音。 甲与乙斗，丙支持甲，丁支持乙。 后来甲乙议和，第一条款：诛丙、丁。 ----木心
+            </p>
+        </div>
+        <div class="item">
+            <img src="../static/img/ic_p8.jpg">
+            <p class="carousel-caption">
+                无论蓬户荆扉，都将因你的倚闾而成为我的凯旋门。 ----木心
+            </p>
+        </div>
+        <div class="item">
+            <img src="../static/img/ic_p9.jpg">
+            <p class="carousel-caption">
+                既然无处可逃，不如喜悦。既然没有净土，不如清心。既然没有如愿，不如释然。 ----丰子恺
+            </p>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<!-- 功能模块 -->
+<div class="row div_function">
+    <div class="col-xs-4">
+        <div class="panel panel-default" id="pFunc1">
+            <div class="panel-body">
+                <form action="/transform" method="post" enctype="multipart/form-data">
+                    <strong>1.选择风格</strong>
+                    <hr>
+                    <select name="style" id="style" onchange="changeImage()" class="btn btn-primary">
+                        <option>candy</option>
+                        <option>cubist</option>
+                        <option>cpuhead</option>
+                        <option>feathers</option>
+                        <option>gouache</option>
+                        <option>line_geometry</option>
+                        <option>mona_lisa</option>
+                        <option>mosaic</option>
+                        <option>obama_hope</option>
+                        <option>painting</option>
+                        <option>picasso</option>
+                        <option>plaid_portrait</option>
+                        <option>rain_princess</option>
+                        <option>starry_night</option>
+                        <option>sunday_afternoon</option>
+                        <option>the_scream</option>
+                        <option>udnie</option>
+                        <option>van_gogh</option>
+                        <option>wave</option>
+                    </select>
+                    <p></p>
+                    <div align="center">
+                        <img id='imageShow' src="../static/img/style/candy.jpg" width="150"
+                             height="150">
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="panel panel-default"  id="pFunc2">
+            <div class="panel-body">
+                <strong>2.上传图片</strong>
+                <hr>
+                <div style=" height:0px; overflow:hidden; position:absolute;">
+                <input type="file" id="up" name="pic" onchange="changeContentImage()"/></div>
+                <button onclick="document.getElementById('up').click();" class="btn btn-primary">选择内容图片</button>
+                <p></p>
+                <div align="center">
+                    <img id='contentimageShow' src="../static/img/content/test.jpg" width="150"
+                         height="150">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="panel panel-default"  id="pFunc3">
+            <div class="panel-body">
+                <strong>3.风格图片</strong>
+                <hr>
+                <input type="submit" value="转换图像风格" onclick="showStatus()" class="btn btn-primary">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 技术文档 -->
+<div class="container div_divider">
+    <!-- 分割线 -->
+    <hr class="hr_1"><hr class="hr_2">
+    <div class="row">
+        <!-- 文章列表 -->
+        <div class="col-xs-9">
+            <div class="list-group div_article">
+                <!-- 子头栏 -->
+                <a href="#" class="list-group-item active item_article_first">
+                    <h4 class="list-group-item-heading">
+                        相关技术文章
+                    </h4>
+                </a>
+                <!-- 文章列表 -->
+                <div class="list-group-item item_article">
+                    <div class="row">
+                        <div class="div_center col-xs-9">
+                            <div class="list-group-item-heading div_article_title">
+                                <strong>
+                                    《图像风格转换系统》
+                                </strong>
+                            </div>
+                            <p class="list-group-item-text div_article_content">
+                                神经风格转换（样式迁”）是一种使用卷积神经网络自动将某一图像的样式（风格）应用到另一张图片上的技术，可以看做将某张图片自动施加滤镜的修饰技术。比如，我们可以把一张图片变为素描风格，油画风格，蜡笔风格等任何你想要的艺术风格。
+                            </p>
+                            <br>
+                            <div>
+                                <a href="http://www.thebetterkong.cn/2021/06/25/DeepLearning/style-transfer/">阅读全文 »</a>
+                            </div>
+                        </div>
+                        <!-- 右侧图片，信息 -->
+                        <div class="col-xs-3 div_right_info">
+                            <img class="iv_article img-rounded" src="../static/img/article1.png">
+                            <div>2021-06-25</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 右侧 -->
+        <div class="col-xs-3 div_record">
+            <!-- 作者信息 -->
+            <div class="jumbotron div_userinfo">
+                <img class="iv_user_head img-circle" src="../static/img/avatar.png">
+                <div style="display: inline-block; margin-left: 12px;font-size: 18px;">TheBetterKong</div>
+                <hr>
+                <div><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;thebetterkong@outlook.com</div>
+                <br>
+                <div><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;开源地址：<a href="https://github.com/TheBetterKong/fast-neural-style-transfer">Github</a></div>
+                <hr>
+                <div style="text-align: center;line-height: 36px;">欢迎交流！</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/init.js" type="text/script"></script>
+<script src="../static/js/util.js"></script>
+<script src="../static/js/my_panel.js"></script>
+
+</body>
+</html>
