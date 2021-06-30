@@ -35,19 +35,8 @@ function changeContentImage() {
     }
 }
 
-// pFunc3 生成风格转换结果图片，期间的 loading.gif
-// function showStatus() {
-//     var status = document.createElement('img');
-//     status.setAttribute('src','../static/img/loading1.gif')
-//     document.getElementById('status').appendChild(status)
-// }
-
+// pFunc3 生成风格转换结果图片
 function showImage() {
-    // 提供 gif 动图
-    var status = document.createElement('img');
-    status.setAttribute('src','../static/img/loading1.gif')
-    document.getElementById('result').appendChild(status)
-
     // 与服务器交互
     var style = $("#style").val();                                  // 获取风格
 
@@ -82,7 +71,6 @@ function showImage() {
             contentType: false
         }).done(function (ret) {
             if (ret['isSuccess']) {
-                status.setAttribute('src', ret['style_image'])
                 // var result = '';
                 // var result1 = '';
                 // $("#show").attr('value',+ ret['f'] +);

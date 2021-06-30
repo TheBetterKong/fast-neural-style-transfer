@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <title>转换后图片</title>
+
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/util.js"></script>
+    <script src="../static/js/my_panel.js"></script>
+
+<!--    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">-->
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" media="screen" type="text/css">-->
+<!--    <script src="../static/js/jquery.min.js"></script>-->
+<!--    <script src="../static/js/maple.js"></script>-->
+</head>
+
+<!--<body style="background: #DECEBE url(../static/img/ic_p1.png) fixed no-repeat center 0;overflow-x: hidden;overflow-y: auto">-->
+<body style="background: #DECEBE fixed no-repeat center 0;overflow-x: hidden;overflow-y: auto">
+
+<h1 align="center" class="my_title" >图像风格转换后的图片</h1>
+<hr>
+<div align="center">
+    <img src="{{ url_for('static', filename=style) }}" width="15%" height="15%">
+    <img src="{{ url_for('static', filename=content) }}" width="35%" height="35%">
+    <img src="{{ url_for('static', filename=transformed) }}" width="35%" height="35%">
+</div>
+<hr>
+<div align="center">
+    <br>
+    <a class="btn btn-primary" href="/" style="font-size: large;text-decoration-line: none">返回</a>
+</div>
+
+</body>
+</html>
