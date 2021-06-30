@@ -88,12 +88,19 @@
     </a>
 </div>
 
-<!-- 功能模块 -->
+<!--<form id="form1">-->
+<!--     <label for="exampleInputEmail1">头像</label>-->
+<!--      <input type="button" value="上传图片" οnclick="f.click()" class="btn_mouseout"/><br>-->
+<!--       <p><input type="file" id="f" name="f" οnchange="sc(this);" style="display:none"/></p>-->
+<!-- </form>-->
+<!--<div id="result"></div>-->
+
+<!-- 功能模块-->
 <div class="row div_function">
-    <div class="col-xs-4">
-        <div class="panel panel-default" id="pFunc1">
-            <div class="panel-body">
-                <form action="/transform" method="post" enctype="multipart/form-data">
+    <form id="form1" action="/transform" method="post" enctype="multipart/form-data">
+        <div class="col-xs-4">
+            <div class="panel panel-default" id="pFunc1">
+                <div class="panel-body">
                     <strong>1.选择风格</strong>
                     <hr>
                     <select name="style" id="style" onchange="changeImage()" class="btn btn-primary">
@@ -123,35 +130,38 @@
                              height="150">
                     </div>
                     <br><br>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-4">
-        <div class="panel panel-default"  id="pFunc2">
-            <div class="panel-body">
-                <strong>2.上传图片</strong>
-                <hr>
-                <div style=" height:0px; overflow:hidden; position:absolute;">
-                <input type="file" id="up" name="pic" onchange="changeContentImage()"/></div>
-                <button onclick="document.getElementById('up').click();" class="btn btn-primary">选择内容图片</button>
-                <p></p>
-                <div align="center">
-                    <img id='contentimageShow' src="../static/img/content/test.jpg" width="150"
-                         height="150">
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-xs-4">
-        <div class="panel panel-default"  id="pFunc3">
-            <div class="panel-body">
-                <strong>3.风格图片</strong>
-                <hr>
-                <input type="submit" value="转换图像风格" onclick="showStatus()" class="btn btn-primary">
+        <div class="col-xs-4">
+            <div class="panel panel-default" id="pFunc2">
+                <div class="panel-body">
+                    <strong>2.上传图片</strong>
+                    <hr>
+                    <div style=" height:0px; overflow:hidden; position:absolute;">
+                        <input type="file" id="pic" name="pic" onchange="changeContentImage()"/></div>
+                    <input type="button" onclick="document.getElementById('pic').click();" class="btn btn-primary"
+                           value="选择内容图片"></input>
+                    <p></p>
+                    <div align="center">
+                        <img id='contentimageShow' src="../static/img/content/test.jpg" width="150"
+                             height="150">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="col-xs-4">
+            <div class="panel panel-default" id="pFunc3">
+                <div class="panel-body">
+                    <strong>3.风格图片</strong>
+                    <hr>
+                    <input type="submit" id="f" name="f" value="转换图像风格" onclick="showImage()" class="btn btn-primary">
+                    <p></p>
+                    <div align="center" id="result"></div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <!-- 技术文档 -->

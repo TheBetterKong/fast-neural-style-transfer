@@ -1,5 +1,11 @@
+/***
+ * @Author      TheBetterKong
+ * @Description 控制 pannel 组件变色功能
+ * @Date        2010/06/24
+ */
 
 var MyUtil = {};
+
 (function (){
 	MyUtil.MainColor_Bla = "#34374C";
 	MyUtil.MainColor_Black = "#2C2E3E";
