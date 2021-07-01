@@ -4,17 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
     <title>fast-neural-style-transfer</title>
 
     <!-- Bootstrap -->
-	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -23,8 +23,6 @@
 </head>
 
 <body>
-
-<!--<h1 align="center" class="my_title" >图像风格转换</h1>-->
 
 <!-- 图片轮播 -->
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -88,13 +86,6 @@
     </a>
 </div>
 
-<!--<form id="form1">-->
-<!--     <label for="exampleInputEmail1">头像</label>-->
-<!--      <input type="button" value="上传图片" οnclick="f.click()" class="btn_mouseout"/><br>-->
-<!--       <p><input type="file" id="f" name="f" οnchange="sc(this);" style="display:none"/></p>-->
-<!-- </form>-->
-<!--<div id="result"></div>-->
-
 <!-- 功能模块-->
 <div class="row div_function">
     <form id="form1" action="/transform" method="post" enctype="multipart/form-data">
@@ -106,7 +97,7 @@
                     <select name="style" id="style" onchange="changeImage()" class="btn btn-primary">
                         <option>candy</option>
                         <option>cubist</option>
-                        <option>cpuhead</option>
+                        <option>cuphead</option>
                         <option>feathers</option>
                         <option>gouache</option>
                         <option>line_geometry</option>
@@ -144,7 +135,7 @@
                            value="选择内容图片"></input>
                     <p></p>
                     <div align="center">
-                        <img id='contentimageShow' src="../static/img/style_examples/content/test7.jpg" width="150"
+                        <img id='contentimageShow' src="../static/img/examples/content/test7.jpg" width="150"
                              height="150">
                     </div>
                 </div>
@@ -158,7 +149,7 @@
                     <input type="submit" id="f" name="f" value="转换图像风格" onclick="showImage()" class="btn btn-primary">
                     <p></p>
                     <div align="center" id="result">
-                        <img id='resultImage' src="../static/img/style_examples/generated/cubist_res.jpg" width="150"
+                        <img id='resultImage' src="../static/img/examples/generated/cubist_res.jpg" width="150"
                              height="150">
                     </div>
                 </div>
@@ -170,7 +161,8 @@
 <!-- 技术文档 -->
 <div class="container div_divider">
     <!-- 分割线 -->
-    <hr class="hr_1"><hr class="hr_2">
+    <hr class="hr_1">
+    <hr class="hr_2">
     <div class="row">
         <!-- 文章列表 -->
         <div class="col-xs-9">
@@ -214,9 +206,11 @@
                 <img class="iv_user_head img-circle" src="../static/img/avatar.png">
                 <div style="display: inline-block; margin-left: 12px;font-size: 18px;">TheBetterKong</div>
                 <hr>
-                <div><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;thebetterkong@outlook.com</div>
+                <div><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;thebetterkong@outlook.com
+                </div>
                 <br>
-                <div><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;开源地址：<a href="https://github.com/TheBetterKong/fast-neural-style-transfer">Github</a></div>
+                <div><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;开源地址：<a
+                        href="https://github.com/TheBetterKong/fast-neural-style-transfer">Github</a></div>
                 <hr>
                 <div style="text-align: center;line-height: 36px;">欢迎交流！</div>
             </div>

@@ -8,11 +8,9 @@
 # @Software : PyCharm
 
 import os
-import time
 
-import torch
 from torch.autograd import Variable
-from flask import Flask, render_template, request, send_from_directory, jsonify
+from flask import Flask, render_template, request, jsonify
 from torchvision.utils import save_image
 from PIL import Image
 
@@ -23,9 +21,9 @@ from utils import *
 UPLOAD_FOLDER = 'static/img/uploads/'
 STYLE_FOLDER = 'static/img/style'
 MODEL_FOLDER = 'checkpoints/select_model'
-OUTPUTS = 'static/img/outputs/'
+OUTPUTS_FOLDER = 'static/img/outputs/'
 
-ALLOWED_EXTENSIONS = {'png', 'jpg'}
+ALLOWED_EXTENSIONS = {'png', 'PNG', 'jpg', 'JPG', 'jpeg'}
 
 # 配置 app
 app = Flask(__name__)
@@ -35,7 +33,7 @@ app.static_folder = 'static'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['STYLE_FOLDER'] = STYLE_FOLDER
 app.config['MODEL_FOLDER'] = MODEL_FOLDER
-app.config['OUTPUTS'] = OUTPUTS
+app.config['OUTPUTS_FOLDER'] = OUTPUTS_FOLDER
 
 
 @app.route('/')
@@ -48,7 +46,7 @@ def image_deal():
     # 风格 ---> 模型
     models_dict = {'candy': 'candy_10000.pth',
                    'cubist': 'cubist_2000.pth',
-                   'cpuhead': 'cuphead_10000.pth',
+                   'cuphead': 'cuphead_10000.pth',
                    'feathers': 'feathers_2000.pth',
                    'gouache': 'gouache_2000.pth',
                    'line_geometry': 'line_geometry_10000.pth',
@@ -81,6 +79,7 @@ def image_deal():
             if os.path.exists(app.config['UPLOAD_FOLDER']) is False:
                 os.makedirs(app.config['UPLOAD_FOLDER'])
             content_image_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file_count_control(app.config['UPLOAD_FOLDER'])     # 上传的 content 目录文件满时，清空一下
             file.save(content_image_path)
 
             # 获取风格的 model
@@ -121,26 +120,44 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-def transformImage(style_model_path, image_path):
+def file_count_control(folder_path):
+    """
+    控制相关目录下的文件数，达到 20 时自动清空文件
+    :param folder_path:     监测的目录
+    :return:                0：没有清空，1：有清空
+    """
+    file_count = 0
+    files = []
+    # 检查目录下的文件数
+    for _, _, filenames in os.walk(folder_path):
+        for file in filenames:
+            files.append(file)
+            file_count = file_count + 1
+    # 超则清空文件夹
+    if file_count >= 20:
+        for file in files:
+            os.remove(os.path.join(folder_path, file))
+
+
+def transformImage(style_model_path, content_image_path):
     """
     图像风格转换
     :param style_model_path:    用户选择的对应风格的模型路径
-    :param image_path:          用户上传的内容图片路径
+    :param content_image_path:  用户上传的内容图片路径
     :return:                    生成的风格结果图片路径
     """
-    os.makedirs(app.config['OUTPUTS'], exist_ok=True)
+    os.makedirs(app.config['OUTPUTS_FOLDER'], exist_ok=True)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     transform = style_transform()
-
     # Define model and load model checkpoint
     transformer = TransformerNet().to(device)
     transformer.load_state_dict(torch.load(style_model_path, map_location='cpu'))
     transformer.eval()
 
     # Prepare input
-    image_tensor = Variable(transform(Image.open(image_path))).to(device)
+    image_tensor = Variable(transform(Image.open(content_image_path))).to(device)
     image_tensor = image_tensor.unsqueeze(0)
 
     # Stylize image
@@ -148,11 +165,14 @@ def transformImage(style_model_path, image_path):
         stylized_image = denormalize(transformer(image_tensor)).cpu()
 
     # Save image
-    style = style_model_path.split("\\")[-1].split(".")[0]
-    content = image_path.split("/")[-1]
-    save_image(stylized_image, f"static\img\outputs\stylized-{style}-{content}")
+    _, style_model = os.path.split(style_model_path)
+    style_model_name = style_model.split(".")[0]
+    _, content = os.path.split(content_image_path)
+    transform_image_path = f"{app.config['OUTPUTS_FOLDER']}stylized-{style_model_name}-{content}"
+    file_count_control(app.config['OUTPUTS_FOLDER'])  # 上传的 content 目录文件满时，清空一下
+    save_image(stylized_image, transform_image_path)
 
-    return f"static\img\outputs\stylized-{style}-{content}"
+    return transform_image_path
 
 
 if __name__ == '__main__':

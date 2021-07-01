@@ -16,22 +16,23 @@ function changeImage() {
 function changeContentImage() {
     function getObjectURL(file) {
         var url = null;
-        if (window.createObjcectURL != undefined) {
+        if (window.createObjcectURL !== undefined) {
             url = window.createOjcectURL(file);
-        } else if (window.URL != undefined) {
+        } else if (window.URL !== undefined) {
             url = window.URL.createObjectURL(file);
-        } else if (window.webkitURL != undefined) {
+        } else if (window.webkitURL !== undefined) {
             url = window.webkitURL.createObjectURL(file);
         }
         return url;
     }
     var fk = document.getElementById("pic");
     var f = fk.files;
-    if(fk.value.indexOf("jpg") != -1 || fk.value.indexOf("png") != -1) {
+    if(fk.value.indexOf("jpg") !== -1 || fk.value.indexOf("JPG") !== -1 || fk.value.indexOf("jpeg") !== -1
+        || fk.value.indexOf("png") !== -1 || fk.value.indexOf("PNG") !== -1) {
         var objURL = getObjectURL(f[0]);    // 这里的 objURL 就是 input file 的真实路径
         document.getElementById('contentimageShow').src = objURL;
     } else {
-        alert("您未上传文件，或者您上传文件类型有误！！！\n" + "注意：仅支持 .png 和 .jpg 格式的图片。")
+        alert("您未上传文件，或者您上传文件类型有误！！！\n" + "注意：仅支持 png，jpg，jpeg 格式的图片。")
     }
 }
 
@@ -51,7 +52,7 @@ function showImage() {
     var maxSize = 1048576;                  // 最大 1MB
 
     // 处理
-    if (ext !== '.png' && ext !== '.jpg') {
+    if (ext !== '.png' && ext !== '.PNG' && ext !== '.jpg' && ext !== '.JPG' && ext !== '.jpeg') {
         parent.layer.msg('文件类型错误,请上传图片类型');
         return false;
     } else if (parseInt(fileSize) >= parseInt(maxSize)) {
@@ -70,16 +71,9 @@ function showImage() {
             processData: false,
             contentType: false
         }).done(function (ret) {
-            if (ret['isSuccess']) {
-                // var result = '';
-                // var result1 = '';
-                // $("#show").attr('value',+ ret['f'] +);
-                // result += '<img src="' + '__ROAD__' + ret['f'] + '" width="100">';
-                // result1 += '<input value="' + ret['f'] + '" name="user_headimg" style="display:none;">';
-                // $('#result').html(result);
-                // $('#show').html(result1);
+            if (!ret['isSuccess']) {
+                layer.msg(ret['status']);
             }
-            layer.msg(ret['status']);
         });
         return false;
     }

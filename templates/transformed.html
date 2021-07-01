@@ -18,27 +18,41 @@
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/util.js"></script>
     <script src="../static/js/my_panel.js"></script>
-
-<!--    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">-->
-<!--    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" media="screen" type="text/css">-->
-<!--    <script src="../static/js/jquery.min.js"></script>-->
-<!--    <script src="../static/js/maple.js"></script>-->
 </head>
 
-<!--<body style="background: #DECEBE url(../static/img/ic_p1.png) fixed no-repeat center 0;overflow-x: hidden;overflow-y: auto">-->
-<body style="background: #DECEBE fixed no-repeat center 0;overflow-x: hidden;overflow-y: auto">
+<style>
+    body {
+        background-image: url(../static/img/background.jpg);
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center
+    }
+</style>
 
-<h1 align="center" class="my_title" >图像风格转换后的图片</h1>
+<body>
+<h1 align="center" class="my_title">图像风格转换后的图片</h1>
+
+<br>
 <hr>
 <div align="center">
-    <img src="{{ url_for('static', filename=style) }}" width="15%" height="15%">
-    <img src="{{ url_for('static', filename=content) }}" width="35%" height="35%">
-    <img src="{{ url_for('static', filename=transformed) }}" width="35%" height="35%">
+    <img src="{{ style }}" width="350" height="350">
+    <img src="{{ content }}" width="350" height="350">
+    <img src="{{ transformed }}" width="350" height="350">
 </div>
 <hr>
+<br>
+
+<div align="center"><a class="btn btn-primary" href="/" style="font-size: large;text-decoration-line: none">返回</a></div>
+
 <div align="center">
-    <br>
-    <a class="btn btn-primary" href="/" style="font-size: large;text-decoration-line: none">返回</a>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="ToolBar">
+            <p>注意：</p>
+            <p>1. 本站某些风格图片的模型训练还不够完全，并未达到最优（例如：udnie），后续会慢慢调整并引入更多的风格，见谅！</p>
+            <p>2. 也有些图片本身就不太适合作为风格，本站也将这些图片引入了，可以作为对比（例如：obama_hope、obama_hope）。</p>
+        </div>
+    </nav>
 </div>
 
 </body>
