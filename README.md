@@ -85,6 +85,8 @@ python3 test_on_video.py  --video_path <path-to-video> \
 
 风格转换系统还是很有意思，很值得学习的一个项目。打算添加 web 界面，或者微信小程序来用于效果展示。
 
+『[展示地址](www.thebetterkong.cn:7001)』
+
 ## Acknowledgement
 
 有关「快速风格转换系统」的网络结构和相关细节，可见本项目的 /doc 文档。
