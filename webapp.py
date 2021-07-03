@@ -150,7 +150,7 @@ def transformImage(style_model_path, content_image_path):
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    transform = style_transform()
+    transform = style_transform(image_size=256)
     # Define model and load model checkpoint
     transformer = TransformerNet().to(device)
     transformer.load_state_dict(torch.load(style_model_path, map_location='cpu'))
@@ -176,4 +176,4 @@ def transformImage(style_model_path, content_image_path):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False, host='0.0.0.0', port=5000)
